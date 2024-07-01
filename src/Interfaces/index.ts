@@ -34,6 +34,7 @@ export type TParamIteration = {
   mirostat_tau: number;
   mirostat_eta: number;
   generation: number;
+  stream: boolean;
 };
 
 // Interface for the default configuration options

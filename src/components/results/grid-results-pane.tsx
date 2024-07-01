@@ -68,6 +68,7 @@ export default function GridResultsPane() {
                               mirostat_eta: mirostat_eta,
                               generation: generation,
                               seed: generation,
+                              stream: false,
                             });
                           }
                         }
