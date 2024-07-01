@@ -94,6 +94,7 @@ https://github.com/tauri-apps/plugins-workspace/tree/v1/plugins/single-instance
 [ok] - Corrected existing Rust code to pass Clippy checks
 [ok] - Fixed padding in "Expand/Hide" buttons for params and metadate
 [ok] - Improved UI for component that displays inference parameters with collapsible prompts
+[ok] - Fixes generation requests returning incomplete results data (uses raw requests instead of ollama-rs)
 
 
 
