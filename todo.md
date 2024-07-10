@@ -100,6 +100,8 @@ https://github.com/tauri-apps/plugins-workspace/tree/v1/plugins/single-instance
 
 ---
 
+- clean command.rs and related code after removing ollama-rs for generation
+- address options and keep-alive
 - Add CI checks for typescript code (ESLint?)
 - Build options straight from config: https://github.com/pepperoni21/ollama-rs/blob/master/examples/options_from_json.rs
 - [?] Allow pre-loading a model before running inference with it (benchmark avg time for this operation)
