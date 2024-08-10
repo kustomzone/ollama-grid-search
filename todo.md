@@ -110,6 +110,10 @@ https://github.com/tauri-apps/plugins-workspace/tree/v1/plugins/single-instance
 
   This will result in a new experiment.
 
+  Trigger the "sheet" element closing when selecting an experiment to rerun
+
+  ***
+
 - Add CI checks for typescript code (ESLint?)
 - Build options straight from config: https://github.com/pepperoni21/ollama-rs/blob/master/examples/options_from_json.rs
 
