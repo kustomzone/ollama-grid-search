@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { convertEpochToDateTime } from "@/lib";
-import { DownloadIcon, FileTextIcon } from "@radix-ui/react-icons";
+import { DownloadIcon, FileTextIcon, UpdateIcon } from "@radix-ui/react-icons";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
@@ -68,7 +68,7 @@ export function LogsSelector() {
         <SheetHeader>
           <SheetTitle className="text-2xl">Experiments</SheetTitle>
           <SheetDescription>
-            Inspect or download your past experiments in JSON format.
+            Inspect, re-run or download your past experiments in JSON format.
           </SheetDescription>
         </SheetHeader>
         <div id="results" className="h-full w-full gap-8 overflow-y-auto py-6">
@@ -94,6 +94,10 @@ export function LogsSelector() {
                 {/* Buttons to inspect and download */}
                 <div>
                   <ExperimentDataDialog experiment={exp} />
+                  <Button variant="ghost" size="icon" onClick={() => {}}>
+                    <UpdateIcon className="h-4 w-4" />
+                  </Button>
+
                   <Button
                     variant="ghost"
                     size="icon"
