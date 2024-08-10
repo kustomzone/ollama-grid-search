@@ -68,7 +68,7 @@ export function LogsSelector() {
         <SheetHeader>
           <SheetTitle className="text-2xl">Experiments</SheetTitle>
           <SheetDescription>
-            Inspect, re-run or download your past experiments in JSON format.
+            Inspect, re-run or download your experiments (JSON)
           </SheetDescription>
         </SheetHeader>
         <div id="results" className="h-full w-full gap-8 overflow-y-auto py-6">

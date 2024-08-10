@@ -64,6 +64,7 @@
     "windows": [
       {
         "fullscreen": false,
+        "maximized": true,
         "resizable": true,
         "title": "ollama-grid-search",
         "width": 1080,
