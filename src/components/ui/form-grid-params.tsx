@@ -135,6 +135,8 @@ function paramsToArray(list: string): number[] {
     }
   }
 
+  alert("+" + list + "+");
+
   // Otherwise, split the string and parse values as a list
   const values = list.split(",").map((value) => parseFloat(value));
 
@@ -147,29 +149,32 @@ export default function FormGridParams() {
   const isFetching = useIsFetching({ queryKey: ["get_inference"] });
   const { toast } = useToast();
   const [config, _] = useAtom(configAtom);
-  const [__, setGridParams] = useAtom(gridParamsAtom);
+  const [gridParams, setGridParams] = useAtom(gridParamsAtom);
   const confirm = useConfirm();
 
-  const defaultPrompt = "Write a short sentence!";
-
   // Initiates for fields with value set in Settings > default options
+  // ! make a derived atom called formParams that combines gridParams and config
+  // ! and can be updated when cloning an experiment
+  // ! https://jotai.org/docs/guides/composing-atoms
+  // ! https://chatgpt.com/c/0ea69b31-988d-4e7b-bd7d-a6d2cc0d7347
   const form = useForm<z.infer<typeof ParamsFormSchema>>({
     resolver: zodResolver(ParamsFormSchema),
     defaultValues: {
+      ...gridParams,
       experiment_uuid: uuidv4(),
-      prompts: [defaultPrompt],
-      system_prompt: config.system_prompt,
-      models: [],
-      temperatureList: config.default_options.temperature,
-      repeatPenaltyList: config.default_options.repeat_penalty,
-      topKList: config.default_options.top_k,
-      topPList: config.default_options.top_p,
-      repeatLastNList: config.default_options.repeat_last_n,
-      tfsZList: config.default_options.tfs_z,
-      mirostatList: config.default_options.mirostat,
-      mirostatTauList: config.default_options.mirostat_tau,
-      mirostatEtaList: config.default_options.mirostat_eta,
-      generations: 1,
+      // prompts: gridParams.prompts,
+      // system_prompt: config.system_prompt,
+      // models: [],
+      // temperatureList: config.default_options.temperature,
+      // repeatPenaltyList: config.default_options.repeat_penalty,
+      // topKList: config.default_options.top_k,
+      // topPList: config.default_options.top_p,
+      // repeatLastNList: config.default_options.repeat_last_n,
+      // tfsZList: config.default_options.tfs_z,
+      // mirostatList: config.default_options.mirostat,
+      // mirostatTauList: config.default_options.mirostat_tau,
+      // mirostatEtaList: config.default_options.mirostat_eta,
+      // generations: 1,
     },
   });
 
@@ -178,20 +183,24 @@ export default function FormGridParams() {
     queryClient.removeQueries({ queryKey: ["get_inference"] });
 
     // regenerate uuid for this experiment so all results are refreshed
-    setGridParams({
-      ...data,
-      experiment_uuid: uuidv4(),
-      temperatureList: paramsToArray(data.temperatureList),
-      repeatPenaltyList: paramsToArray(data.repeatPenaltyList),
-      topKList: paramsToArray(data.topKList),
-      topPList: paramsToArray(data.topPList),
-      repeatLastNList: paramsToArray(data.repeatLastNList),
-      tfsZList: paramsToArray(data.tfsZList),
-      mirostatList: paramsToArray(data.mirostatList),
-      mirostatTauList: paramsToArray(data.mirostatTauList),
-      mirostatEtaList: paramsToArray(data.mirostatEtaList),
-      generations: data.generations,
-    });
+    try {
+      setGridParams({
+        ...data,
+        experiment_uuid: uuidv4(),
+        temperatureList: paramsToArray(data.temperatureList),
+        repeatPenaltyList: paramsToArray(data.repeatPenaltyList),
+        topKList: paramsToArray(data.topKList),
+        topPList: paramsToArray(data.topPList),
+        repeatLastNList: paramsToArray(data.repeatLastNList),
+        tfsZList: paramsToArray(data.tfsZList),
+        mirostatList: paramsToArray(data.mirostatList),
+        mirostatTauList: paramsToArray(data.mirostatTauList),
+        mirostatEtaList: paramsToArray(data.mirostatEtaList),
+        generations: data.generations,
+      });
+    } catch (error) {
+      alert((error as Error).message);
+    }
 
     toast({
       title: "Running experiment.",
