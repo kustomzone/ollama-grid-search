@@ -19,6 +19,7 @@ import { writeTextFile } from "@tauri-apps/api/fs";
 import { saveAs } from "file-saver";
 import { ExperimentDataDialog } from "../experiment-data-dialog";
 import { get_experiments } from "../queries";
+import { useState } from "react";
 
 const handleDownload = async (
   fileName: string,
@@ -48,9 +49,10 @@ export function LogsSelector() {
     staleTime: 0,
     // cacheTime: 0,
   });
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   return (
-    <Sheet>
+    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetTrigger asChild>
         <Button
           variant="transparentDark"
@@ -94,7 +96,11 @@ export function LogsSelector() {
                 {/* Buttons to inspect and download */}
                 <div>
                   <ExperimentDataDialog experiment={exp} />
-                  <Button variant="ghost" size="icon" onClick={() => {}}>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setSheetOpen(false)}
+                  >
                     <UpdateIcon className="h-4 w-4" />
                   </Button>
 
