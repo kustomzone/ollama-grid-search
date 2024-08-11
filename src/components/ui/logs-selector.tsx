@@ -17,9 +17,10 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { save } from "@tauri-apps/api/dialog";
 import { writeTextFile } from "@tauri-apps/api/fs";
 import { saveAs } from "file-saver";
+import { useState } from "react";
 import { ExperimentDataDialog } from "../experiment-data-dialog";
 import { get_experiments } from "../queries";
-import { useState } from "react";
+import { toast } from "./use-toast";
 
 const handleDownload = async (
   fileName: string,
@@ -50,6 +51,14 @@ export function LogsSelector() {
     // cacheTime: 0,
   });
   const [sheetOpen, setSheetOpen] = useState(false);
+
+  function cloneExperiment(data: string) {
+    toast({
+      title: JSON.stringify(data, null, 2),
+      duration: 2500,
+    });
+    setSheetOpen(false);
+  }
 
   return (
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
@@ -99,7 +108,7 @@ export function LogsSelector() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => setSheetOpen(false)}
+                    onClick={() => cloneExperiment(exp.contents)}
                   >
                     <UpdateIcon className="h-4 w-4" />
                   </Button>

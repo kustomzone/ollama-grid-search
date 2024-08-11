@@ -112,7 +112,9 @@ https://github.com/tauri-apps/plugins-workspace/tree/v1/plugins/single-instance
 
   Trigger the "sheet" element closing when selecting an experiment to rerun
 
-  ***
+  <!-- - We need a global atom that sets the values for the form... currently, this process is done at the form component itself, and values can't be changed externally unless we mess with default configs (which is not what we want) -->
+
+---
 
 - Add CI checks for typescript code (ESLint?)
 - Build options straight from config: https://github.com/pepperoni21/ollama-rs/blob/master/examples/options_from_json.rs
